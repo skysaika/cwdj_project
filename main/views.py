@@ -1,6 +1,8 @@
 from django.shortcuts import render
+from django.views.generic import TemplateView
 
 
-def index(request):
-    """Представление для отображения главной страницы"""
-    title = 'Главная страница'
+class IndexView(TemplateView):
+    """Класс контроллера главной страницы"""
+    template_name = 'main/index.html'
+

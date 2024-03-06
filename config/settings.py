@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'users',
     'clients',
     'mailing',
-    'django-crontab',
+    'main',
 ]
 
 MIDDLEWARE = [
@@ -121,7 +121,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'ru'
 
-TIME_ZONE = 'EUROPE/Moscow'
+TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
