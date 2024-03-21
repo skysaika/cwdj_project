@@ -62,6 +62,8 @@ class Mailing(models.Model):
     period = models.CharField(max_length=15, choices=FREQUENCY.choices, verbose_name='периодичность', **NULLABLE)
     status = models.CharField(max_length=15, choices=STATUS.choices, verbose_name='статус рассылки', **NULLABLE)
 
+    next_send_date = models.DateTimeField(verbose_name='следующая отправка', **NULLABLE)
+
     def __str__(self):
         return f'{self.start} - {self.end}'
 
@@ -69,6 +71,27 @@ class Mailing(models.Model):
         verbose_name = 'настройка рассылки'
         verbose_name_plural = 'настройки рассылки'
         ordering = ('start', 'end',)
+
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if not self.next_send_date:
+            self.next_send_date = self.start
+
+    def save(self, *args, **kwargs):
+        if not self.next_send_date:
+            self.next_send_date = self.start
+        super().save(*args, **kwargs)
+
+    def get_status(self):
+        if self.status == self.STATUS.DRAFT:
+            return 'Черновик'
+        elif self.status == self.STATUS.CREATED:
+            return 'Создана'
+        elif self.status == self.STATUS.RUNNING:
+            return 'Запущена'
+        elif self.status == self.STATUS.COMPLETED:
+            return 'Завершена'
 
 
 class Log(models.Model):
