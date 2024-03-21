@@ -28,7 +28,7 @@ class User(AbstractUser):
     class Meta:
         verbose_name = 'Пользователь'
         verbose_name_plural = 'Пользователи'
-        # ordering = ('is_active',)
-        # permissions = [
-        #     ('can_block_user', 'Может блокировать пользователя'),
-        # ]
+        ordering = ('is_active',)
+        permissions = [
+            ('can_block_user', 'Может блокировать пользователя'),
+        ]
